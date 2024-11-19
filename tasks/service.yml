@@ -1,0 +1,10 @@
+---
+- name: Start Nexus service
+  ansible.builtin.service:
+    name: nexus
+    state: started
+
+- name: Enable Nexus service at boot
+  systemd:
+    name: nexus
+    enabled: yes

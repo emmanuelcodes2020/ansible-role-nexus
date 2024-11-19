@@ -1,0 +1,28 @@
+---
+# tasks file for ansible-role-nexus
+- include_tasks: package.yml
+  tags: 
+    - nexus
+    - nexus_package
+
+- include_tasks: user.yml
+  tags: 
+    - nexus
+    - nexus_user
+
+- include_tasks: prepare.yml
+  tags: 
+    - nexus
+    - nexus_prepare
+
+- include_tasks: systemd.yml
+  tags: 
+    - nexus
+    - nexus_systemd
+
+
+- include_tasks: service.yml
+  tags: 
+    - nexus
+    - nexus_service
+

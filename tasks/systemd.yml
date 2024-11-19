@@ -1,0 +1,8 @@
+---
+- name: Create or edit nexus.service file
+  ansible.builtin.template:
+    src: "{{ jinja_relative_path_remote }}"
+    dest: "{{ jinja_template_dest }}"
+    owner: nexus
+    group: nexus
+    mode: '0644'

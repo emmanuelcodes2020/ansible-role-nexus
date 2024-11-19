@@ -1,0 +1,6 @@
+---
+# handlers file for ansible-role-nexus
+  - name: Reload systemd
+    service:
+      name: nexus
+      state: reloaded
