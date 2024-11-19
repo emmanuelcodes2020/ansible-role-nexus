@@ -1,0 +1,54 @@
+---
+- name: Create Nexus directory
+  file:
+       path: "{{ nexus_directory }}"
+       state: directory
+
+- name: Download Nexus tarball
+  get_url:
+        url: "{{ sonatype_nexus_url }}"
+        dest: "{{ nexus_download_directory }}"
+
+- name: Extract Nexus tarball
+  unarchive:
+        src: "{{ nexus_download_directory }}"
+        dest: /app
+        remote_src: yes
+
+- name: Check if Nexus directory exists
+  stat:
+    path: /app/nexus-3
+  register: nexus_dir
+
+- name: Rename untarred Nexus directory
+  ansible.builtin.shell:
+    cmd: mv {{ nexus_previous_directory }} {{ nexus_new_directory }}
+
+
+- name: Set ownership for Nexus directories
+  file:
+    path: "{{ item }}"
+    owner: nexus
+    group: nexus
+    recurse: yes
+  with_items:
+    - "{{ nexus_new_directory }}"
+    - "{{ sonatype }}"
+
+
+- name: Ensure directory structure for nexus.rc file
+  ansible.builtin.file:
+    path: "{{ nexus_rc_directory }}"
+    state: directory
+
+- name: Create nexus.rc file
+  ansible.builtin.file:
+    path: "{{ nexus_rc_file }}"
+    state: touch
+    mode: '0644'
+
+- name: Uncomment and set run_as_user parameter in nexus.rc file
+  ansible.builtin.lineinfile:
+        path: "{{ nexus_rc_file }}"
+        regexp: '^#?run_as_user='
+        line: 'run_as_user="nexus"'

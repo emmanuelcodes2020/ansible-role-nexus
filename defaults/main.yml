@@ -1,0 +1,15 @@
+---
+# defaults file for ansible-role-nexus
+java_version : "1.8.0"
+sonatype_nexus_url : "https://download.sonatype.com/nexus/3/latest-unix.tar.gz"
+nexusowner: "/app/nexus"
+sonatype: "/app/sonatype-work"
+nexus_directory: "/app"
+nexus_download_directory: "/app/nexus.tar.gz"
+nexus_previous_directory: "/app/nexus-3*"
+nexus_new_directory: "/app/nexus"
+nexus_rc_directory: "/app/nexus/bin"
+nexus_rc_file: "/app/nexus/bin/nexus.rc"
+jinja_template_dest : "/etc/systemd/system/nexus.service"
+jinja_relative_path: "roles/ansible-role-nexus/templates/nexus.server.j2"
+jinja_relative_path_remote: "nexus.service.j2"
